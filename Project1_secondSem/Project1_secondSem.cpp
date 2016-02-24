@@ -18,18 +18,20 @@ If the user selects "y" start back at step one. If the user selects "n" quit. Fo
 int main()
 {
 	double tax;
-	double income;
+	int income=0;
+	double temp;
 	char MorS;
 	char YorN;
 	bool validInput = false;
-	bool repeat = false;
+	bool repeat = true;
 	
-	while (!repeat)
+	while (repeat)
 	{
+		validInput = false;
 		std::cout << "This program calculates your income tax." << std::endl;
-		std::cout << "Please enter your taxable income.";
+		std::cout << "Please enter your taxable income. ";
 		std::cin >> income;
-		std::cout << "Are you married and filing jointly (enter an m) or single and filing singly (enter an s)";
+		std::cout << "Are you married and filing jointly (enter an m)\nor single and filing singly (enter an s) ";
 		std::cin >> MorS;
 		while (!validInput)
 		{
@@ -51,9 +53,9 @@ int main()
 				tax = ((income - 0.0)*.022) + 0.0;
 			else if (income <= 5176 && income >= 1727)
 				tax = ((income - 1726.0)*.033) + 40.0;
-			else if (income <=8626 && income >= 5177)
+			else if (income <= 8626 && income >= 5177)
 				tax = ((income - 5176.0)*.062) + 175.0;
-			else if (income>8626)
+			else if (income > 8626)
 				tax = ((income - 8626.0)*.075) + 390.0;
 		}
 		if (MorS == 's')
@@ -64,12 +66,13 @@ int main()
 				tax = ((income - 863.0)*.033) + 25.0;
 			else if (income <= 4313 && income >= 2589)
 				tax = ((income - 2588.0)*.062) + 85.0;
-			else if (income>4313)
+			else if (income > 4313)
 				tax = ((income - 4313.0)*.075) + 181.0;
 		}
 
-		std::cout << "Your income tax is" << tax << std::endl;
-		std::cout << "Do you wish to make another calculation? enter y or n";
+		std::cout.precision(2);
+		std::cout << std::fixed << "Your income tax is " << tax << std::endl;
+		std::cout << "Do you wish to make another calculation? enter y or n ";
 		std::cin >> YorN;
 		validInput = false;
 		while (!validInput)
@@ -80,7 +83,10 @@ int main()
 				repeat = true;
 			}
 			else if (YorN == 'n')
+			{
+				repeat = false;
 				return 0;
+			}
 			else
 			{
 				std::cout << "Invalid input, please enter an y or n ";
@@ -88,6 +94,7 @@ int main()
 				validInput = false;
 			}
 
+		}
 	}
 	
 
